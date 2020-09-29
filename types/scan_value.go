@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/go-pg/pg/v10/internal"
-	"github.com/go-pg/pg/v10/pgjson"
+	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/pgjson"
 )
 
 var (

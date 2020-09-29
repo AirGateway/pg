@@ -23,10 +23,10 @@ err := db.Model((*User)(nil)).Limit(10).Select(&mm)
 ```
 
 - Columns that start with `_` are ignored if there is no destination field.
-- Optional [faster json encoding](https://github.com/go-pg/pgext).
-- Added [pgext.OpenTelemetryHook](https://github.com/go-pg/pgext) that adds
+- Optional [faster json encoding](https://github.com/AirGateway/pgext).
+- Added [pgext.OpenTelemetryHook](https://github.com/AirGateway/pgext) that adds
   [OpenTelemetry instrumentation](https://pg.uptrace.dev/tracing/).
-- Added [pgext.DebugHook](https://github.com/go-pg/pgext) that logs failed queries.
+- Added [pgext.DebugHook](https://github.com/AirGateway/pgext) that logs failed queries.
 - Added `db.Ping` to check if database is healthy.
 
 ### Changes
@@ -57,7 +57,7 @@ err := db.Model((*User)(nil)).Limit(10).Select(&mm)
 ## v9
 
 - `pg:",notnull"` is reworked. Now it means SQL `NOT NULL` constraint and nothing more.
-- Added `pg:",use_zero"` to prevent go-pg from converting Go zero values to SQL `NULL`.
+- Added `pg:",use_zero"` to prevent AirGateway from converting Go zero values to SQL `NULL`.
 - UpdateNotNull is renamed to UpdateNotZero. As previously it omits zero Go values, but it does not
   take in account if field is nullable or not.
 - ORM supports DistinctOn.
@@ -67,7 +67,7 @@ err := db.Model((*User)(nil)).Limit(10).Select(&mm)
   when context is cancelled.
 - `Query.Column` does not accept relation name any more. Use `Query.Relation` instead which returns
   an error if relation does not exist.
-- urlvalues package is removed in favor of https://github.com/go-pg/urlstruct. You can also use
+- urlvalues package is removed in favor of https://github.com/AirGateway/urlstruct. You can also use
   struct based filters via `Query.WhereStruct`.
 - `NewModel` and `AddModel` methods of `HooklessModel` interface were renamed to `NextColumnScanner`
   and `AddColumnScanner` respectively.

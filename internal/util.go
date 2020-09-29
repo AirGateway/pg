@@ -84,7 +84,7 @@ func WithSpan(
 		return fn(ctx, span)
 	}
 
-	ctx, span := global.Tracer("github.com/go-pg/pg").Start(ctx, name)
+	ctx, span := global.Tracer("github.com/AirGateway/pg").Start(ctx, name)
 	defer span.End()
 
 	return fn(ctx, span)

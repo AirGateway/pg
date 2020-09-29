@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/go-pg/pg/v10/internal"
-	"github.com/go-pg/pg/v10/internal/pool"
+	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/internal/pool"
 )
 
 var arrayValueScannerType = reflect.TypeOf((*ArrayValueScanner)(nil)).Elem()

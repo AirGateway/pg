@@ -8,10 +8,10 @@ import (
 	"go.opentelemetry.io/otel/api/trace"
 	"go.opentelemetry.io/otel/label"
 
-	"github.com/go-pg/pg/v10/internal"
-	"github.com/go-pg/pg/v10/internal/pool"
-	"github.com/go-pg/pg/v10/orm"
-	"github.com/go-pg/pg/v10/types"
+	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/orm"
+	"github.com/AirGateway/pg/types"
 )
 
 type baseDB struct {

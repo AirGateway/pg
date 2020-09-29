@@ -4,7 +4,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/go-pg/pg/v10/internal"
+	"github.com/AirGateway/pg/internal"
 )
 
 type sliceTableModel struct {

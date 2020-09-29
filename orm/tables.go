@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"sync"
 
-	"github.com/go-pg/pg/v10/types"
+	"github.com/AirGateway/pg/types"
 )
 
 var _tables = newTables()

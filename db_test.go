@@ -17,8 +17,8 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/go-pg/pg/v10"
-	"github.com/go-pg/pg/v10/orm"
+	"github.com/AirGateway/pg"
+	"github.com/AirGateway/pg/orm"
 )
 
 func init() {
@@ -1050,7 +1050,7 @@ var _ = Describe("errors", func() {
 
 type Genre struct {
 	// tableName is an optional field that specifies custom table name and alias.
-	// By default go-pg generates table name and alias from struct name.
+	// By default AirGateway generates table name and alias from struct name.
 	tableName struct{} `pg:"genres,alias:genre"` // default values are the same
 
 	ID     int

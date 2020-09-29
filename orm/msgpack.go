@@ -5,7 +5,7 @@ import (
 
 	"github.com/vmihailenco/msgpack/v5"
 
-	"github.com/go-pg/pg/v10/types"
+	"github.com/AirGateway/pg/types"
 )
 
 func msgpackAppender(_ reflect.Type) types.AppenderFunc {

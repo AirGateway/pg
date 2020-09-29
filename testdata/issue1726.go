@@ -1,9 +1,9 @@
 package main
 
 import (
-	pg "github.com/go-pg/pg/v10"
-	"github.com/go-pg/pg/v10/orm"
-	"github.com/go-pg/pgext"
+	pg "github.com/AirGateway/pg"
+	"github.com/AirGateway/pg/orm"
+	"github.com/AirGateway/pgext"
 )
 
 func init() {

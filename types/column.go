@@ -3,8 +3,8 @@ package types
 import (
 	"encoding/json"
 
-	"github.com/go-pg/pg/v10/internal/pool"
-	"github.com/go-pg/pg/v10/pgjson"
+	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/pgjson"
 )
 
 const (

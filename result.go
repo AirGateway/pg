@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"strconv"
 
-	"github.com/go-pg/pg/v10/internal"
-	"github.com/go-pg/pg/v10/orm"
+	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/orm"
 )
 
 // Result summarizes an executed SQL command.

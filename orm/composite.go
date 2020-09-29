@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/go-pg/pg/v10/internal/pool"
-	"github.com/go-pg/pg/v10/types"
+	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/types"
 )
 
 func compositeScanner(typ reflect.Type) types.ScannerFunc {
