@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 )
 
 type Parser struct {
@@ -19,7 +19,7 @@ func New(b []byte) *Parser {
 }
 
 func NewString(s string) *Parser {
-	return New(internal.StringToBytes(s))
+	return New(base.StringToBytes(s))
 }
 
 func (p *Parser) Valid() bool {
@@ -88,7 +88,7 @@ func (p *Parser) ReadIdentifier() (string, bool) {
 		if ind := bytes.IndexByte(p.b[s:], ')'); ind != -1 {
 			b := p.b[s : s+ind]
 			p.i = s + ind + 1
-			return internal.BytesToString(b), false
+			return base.BytesToString(b), false
 		}
 	}
 
@@ -110,7 +110,7 @@ func (p *Parser) ReadIdentifier() (string, bool) {
 	}
 	b := p.b[p.i : p.i+ind]
 	p.i += ind
-	return internal.BytesToString(b), !alpha
+	return base.BytesToString(b), !alpha
 }
 
 func (p *Parser) ReadNumber() int {

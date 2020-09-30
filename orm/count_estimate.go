@@ -3,7 +3,7 @@ package orm
 import (
 	"fmt"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 )
 
 // Placeholder that is replaced with count(*).
@@ -66,11 +66,11 @@ func (q *Query) CountEstimate(threshold int) (int, error) {
 			string(query), threshold,
 		)
 		if err != nil {
-			if pgerr, ok := err.(internal.PGError); ok && pgerr.Field('C') == "42883" {
+			if pgerr, ok := err.(base.PGError); ok && pgerr.Field('C') == "42883" {
 				// undefined_function
 				err = q.createCountEstimateFunc()
 				if err != nil {
-					pgerr, ok := err.(internal.PGError)
+					pgerr, ok := err.(base.PGError)
 					if !ok || !pgerr.IntegrityViolation() {
 						return 0, err
 					}

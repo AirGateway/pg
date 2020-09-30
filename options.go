@@ -15,8 +15,8 @@ import (
 
 	"go.opentelemetry.io/otel/api/trace"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base"
+	"github.com/AirGateway/pg/base/pool"
 )
 
 // Options contains database connection options.
@@ -262,7 +262,7 @@ func ParseURL(sURL string) (*Options, error) {
 func (opt *Options) getDialer() func(context.Context) (net.Conn, error) {
 	return func(ctx context.Context) (net.Conn, error) {
 		var conn net.Conn
-		err := internal.WithSpan(ctx, "dialer", func(ctx context.Context, span trace.Span) error {
+		err := base.WithSpan(ctx, "dialer", func(ctx context.Context, span trace.Span) error {
 			var err error
 			conn, err = opt.Dialer(ctx, opt.Network, opt.Addr)
 			return err

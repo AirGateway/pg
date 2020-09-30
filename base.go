@@ -8,8 +8,8 @@ import (
 	"go.opentelemetry.io/otel/api/trace"
 	"go.opentelemetry.io/otel/label"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base"
+	"github.com/AirGateway/pg/base/pool"
 	"github.com/AirGateway/pg/orm"
 	"github.com/AirGateway/pg/types"
 )
@@ -71,7 +71,7 @@ func (db *baseDB) Param(param string) interface{} {
 }
 
 func (db *baseDB) retryBackoff(retry int) time.Duration {
-	return internal.RetryBackoff(retry, db.opt.MinRetryBackoff, db.opt.MaxRetryBackoff)
+	return base.RetryBackoff(retry, db.opt.MinRetryBackoff, db.opt.MaxRetryBackoff)
 }
 
 func (db *baseDB) getConn(ctx context.Context) (*pool.Conn, error) {
@@ -84,7 +84,7 @@ func (db *baseDB) getConn(ctx context.Context) (*pool.Conn, error) {
 		return cn, nil
 	}
 
-	err = internal.WithSpan(ctx, "init_conn", func(ctx context.Context, span trace.Span) error {
+	err = base.WithSpan(ctx, "init_conn", func(ctx context.Context, span trace.Span) error {
 		return db.initConn(ctx, cn)
 	})
 	if err != nil {
@@ -93,7 +93,7 @@ func (db *baseDB) getConn(ctx context.Context) (*pool.Conn, error) {
 		if p, ok := db.pool.(*pool.StickyConnPool); ok {
 			_ = p.Reset(ctx)
 		}
-		if err := internal.Unwrap(err); err != nil {
+		if err := base.Unwrap(err); err != nil {
 			return nil, err
 		}
 		return nil, err
@@ -139,7 +139,7 @@ func (db *baseDB) releaseConn(ctx context.Context, cn *pool.Conn, err error) {
 func (db *baseDB) withConn(
 	ctx context.Context, fn func(context.Context, *pool.Conn) error,
 ) error {
-	return internal.WithSpan(ctx, "with_conn", func(ctx context.Context, span trace.Span) error {
+	return base.WithSpan(ctx, "with_conn", func(ctx context.Context, span trace.Span) error {
 		cn, err := db.getConn(ctx)
 		if err != nil {
 			return err
@@ -154,7 +154,7 @@ func (db *baseDB) withConn(
 				case <-ctx.Done():
 					err := db.cancelRequest(cn.ProcessID, cn.SecretKey)
 					if err != nil {
-						internal.Logger.Printf(ctx, "cancelRequest failed: %s", err)
+						base.Logger.Printf(ctx, "cancelRequest failed: %s", err)
 					}
 					// Signal end of conn use.
 					fnDone <- struct{}{}
@@ -241,11 +241,11 @@ func (db *baseDB) exec(ctx context.Context, query interface{}, params ...interfa
 	for attempt := 0; attempt <= db.opt.MaxRetries; attempt++ {
 		attempt := attempt
 
-		lastErr = internal.WithSpan(ctx, "exec", func(ctx context.Context, span trace.Span) error {
+		lastErr = base.WithSpan(ctx, "exec", func(ctx context.Context, span trace.Span) error {
 			if attempt > 0 {
 				span.SetAttributes(label.Int("retry", attempt))
 
-				if err := internal.Sleep(ctx, db.retryBackoff(attempt-1)); err != nil {
+				if err := base.Sleep(ctx, db.retryBackoff(attempt-1)); err != nil {
 					return err
 				}
 			}
@@ -285,7 +285,7 @@ func (db *baseDB) execOne(c context.Context, query interface{}, params ...interf
 		return nil, err
 	}
 
-	if err := internal.AssertOneRow(res.RowsAffected()); err != nil {
+	if err := base.AssertOneRow(res.RowsAffected()); err != nil {
 		return nil, err
 	}
 	return res, nil
@@ -319,11 +319,11 @@ func (db *baseDB) query(ctx context.Context, model, query interface{}, params ..
 	for attempt := 0; attempt <= db.opt.MaxRetries; attempt++ {
 		attempt := attempt
 
-		lastErr = internal.WithSpan(ctx, "query", func(ctx context.Context, span trace.Span) error {
+		lastErr = base.WithSpan(ctx, "query", func(ctx context.Context, span trace.Span) error {
 			if attempt > 0 {
 				span.SetAttributes(label.Int("retry", attempt))
 
-				if err := internal.Sleep(ctx, db.retryBackoff(attempt-1)); err != nil {
+				if err := base.Sleep(ctx, db.retryBackoff(attempt-1)); err != nil {
 					return err
 				}
 			}
@@ -365,7 +365,7 @@ func (db *baseDB) queryOne(ctx context.Context, model, query interface{}, params
 		return nil, err
 	}
 
-	if err := internal.AssertOneRow(res.RowsAffected()); err != nil {
+	if err := base.AssertOneRow(res.RowsAffected()); err != nil {
 		return nil, err
 	}
 	return res, nil

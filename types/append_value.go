@@ -11,7 +11,7 @@ import (
 
 	"github.com/vmihailenco/bufpool"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 	"github.com/AirGateway/pg/pgjson"
 )
 
@@ -228,7 +228,7 @@ func appendIPNetValue(b []byte, v reflect.Value, flags int) []byte {
 }
 
 func appendJSONRawMessageValue(b []byte, v reflect.Value, flags int) []byte {
-	return AppendString(b, internal.BytesToString(v.Bytes()), flags)
+	return AppendString(b, base.BytesToString(v.Bytes()), flags)
 }
 
 func appendAppenderValue(b []byte, v reflect.Value, flags int) []byte {

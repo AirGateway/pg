@@ -14,8 +14,8 @@ import (
 	"github.com/jinzhu/inflection"
 	"github.com/vmihailenco/tagparser"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base"
+	"github.com/AirGateway/pg/base/pool"
 	"github.com/AirGateway/pg/pgjson"
 	"github.com/AirGateway/pg/types"
 	"github.com/go-pg/zerochecker"
@@ -95,8 +95,8 @@ func newTable(typ reflect.Type) *Table {
 	t := new(Table)
 	t.Type = typ
 	t.zeroStruct = reflect.New(t.Type).Elem()
-	t.TypeName = internal.ToExported(t.Type.Name())
-	t.ModelName = internal.Underscore(t.Type.Name())
+	t.TypeName = base.ToExported(t.Type.Name())
+	t.ModelName = base.Underscore(t.Type.Name())
 	tableName := tableNameInflector(t.ModelName)
 	t.setName(quoteIdent(tableName))
 	t.Alias = quoteIdent(t.ModelName)
@@ -302,7 +302,7 @@ func (t *Table) newField(f reflect.StructField, index []int) *Field {
 		}
 
 		if isKnownTableOption(pgTag.Name) {
-			internal.Warn.Printf(
+			base.Warn.Printf(
 				"%s.%s tag name %q is also an option name; is it a mistake?",
 				t.TypeName, f.Name, pgTag.Name,
 			)
@@ -310,7 +310,7 @@ func (t *Table) newField(f reflect.StructField, index []int) *Field {
 
 		for name := range pgTag.Options {
 			if !isKnownTableOption(name) {
-				internal.Warn.Printf("%s.%s has unknown tag option: %q", t.TypeName, f.Name, name)
+				base.Warn.Printf("%s.%s has unknown tag option: %q", t.TypeName, f.Name, name)
 			}
 		}
 
@@ -323,7 +323,7 @@ func (t *Table) newField(f reflect.StructField, index []int) *Field {
 		if !ok {
 			partitionBy, ok = pgTag.Options["partitionBy"]
 			if ok {
-				internal.Deprecated.Printf("partitionBy is renamed to partition_by")
+				base.Deprecated.Printf("partitionBy is renamed to partition_by")
 			}
 		}
 		if ok {
@@ -360,10 +360,10 @@ func (t *Table) newField(f reflect.StructField, index []int) *Field {
 		return nil
 	}
 
-	sqlName := internal.Underscore(f.Name)
+	sqlName := base.Underscore(f.Name)
 
 	if pgTag.Name != sqlName && isKnownFieldOption(pgTag.Name) {
-		internal.Warn.Printf(
+		base.Warn.Printf(
 			"%s.%s tag name %q is also an option name; is it a mistake?",
 			t.TypeName, f.Name, pgTag.Name,
 		)
@@ -371,7 +371,7 @@ func (t *Table) newField(f reflect.StructField, index []int) *Field {
 
 	for name := range pgTag.Options {
 		if !isKnownFieldOption(name) {
-			internal.Warn.Printf("%s.%s has unknown tag option: %q", t.TypeName, f.Name, name)
+			base.Warn.Printf("%s.%s has unknown tag option: %q", t.TypeName, f.Name, name)
 		}
 	}
 
@@ -628,7 +628,7 @@ func (t *Table) mustHasOneRelation(field *Field, pgTag *tagparser.Tag) bool {
 	}
 
 	if !fkOK {
-		fkPrefix = internal.Underscore(field.GoName) + "_"
+		fkPrefix = base.Underscore(field.GoName) + "_"
 	}
 	fks := make([]*Field, 0, len(joinTable.PKs))
 
@@ -684,7 +684,7 @@ func (t *Table) mustBelongsToRelation(field *Field, pgTag *tagparser.Tag) bool {
 	}
 
 	if !fkOK {
-		fkPrefix = internal.Underscore(t.ModelName) + "_"
+		fkPrefix = base.Underscore(t.ModelName) + "_"
 	}
 	fks := make([]*Field, 0, len(t.PKs))
 
@@ -748,7 +748,7 @@ func (t *Table) mustHasManyRelation(field *Field, pgTag *tagparser.Tag) bool {
 	}
 
 	if !fkOK {
-		fkPrefix = internal.Underscore(t.ModelName) + "_"
+		fkPrefix = base.Underscore(t.ModelName) + "_"
 	}
 	fks := make([]*Field, 0, len(t.PKs))
 
@@ -825,7 +825,7 @@ func (t *Table) mustM2MRelation(field *Field, pgTag *tagparser.Tag) bool {
 	{
 		fkPrefix, ok := pgTag.Options["fk"]
 		if !ok {
-			fkPrefix = internal.Underscore(t.ModelName) + "_"
+			fkPrefix = base.Underscore(t.ModelName) + "_"
 		}
 
 		if ok && len(t.PKs) == 1 {
@@ -862,7 +862,7 @@ func (t *Table) mustM2MRelation(field *Field, pgTag *tagparser.Tag) bool {
 	{
 		joinFKPrefix, ok := pgTag.Options["join_fk"]
 		if !ok {
-			joinFKPrefix = internal.Underscore(joinTable.ModelName) + "_"
+			joinFKPrefix = base.Underscore(joinTable.ModelName) + "_"
 		}
 
 		if ok && len(joinTable.PKs) == 1 {
@@ -911,12 +911,12 @@ func (t *Table) mustM2MRelation(field *Field, pgTag *tagparser.Tag) bool {
 //nolint
 func (t *Table) tryRelationSlice(field *Field, pgTag *tagparser.Tag) bool {
 	if t.tryM2MRelation(field, pgTag) {
-		internal.Deprecated.Printf(
+		base.Deprecated.Printf(
 			`add pg:"rel:many2many" to %s.%s field tag`, t.TypeName, field.GoName)
 		return true
 	}
 	if t.tryHasManyRelation(field, pgTag) {
-		internal.Deprecated.Printf(
+		base.Deprecated.Printf(
 			`add pg:"rel:has-many" to %s.%s field tag`, t.TypeName, field.GoName)
 		return true
 	}
@@ -981,7 +981,7 @@ func (t *Table) tryM2MRelation(field *Field, pgTag *tagparser.Tag) bool {
 	if !joinFKOk {
 		joinFK, joinFKOk = pgTag.Options["joinFK"]
 		if joinFKOk {
-			internal.Deprecated.Printf("joinFK is renamed to join_fk")
+			base.Deprecated.Printf("joinFK is renamed to join_fk")
 		}
 	}
 	if joinFKOk {
@@ -1098,14 +1098,14 @@ func (t *Table) tryRelationStruct(field *Field, pgTag *tagparser.Tag) bool {
 	}
 
 	if t.tryHasOne(joinTable, field, pgTag) {
-		internal.Deprecated.Printf(
+		base.Deprecated.Printf(
 			`add pg:"rel:has-one" to %s.%s field tag`, t.TypeName, field.GoName)
 		t.inlineFields(field, nil)
 		return true
 	}
 
 	if t.tryBelongsToOne(joinTable, field, pgTag) {
-		internal.Deprecated.Printf(
+		base.Deprecated.Printf(
 			`add pg:"rel:belongs-to" to %s.%s field tag`, t.TypeName, field.GoName)
 		t.inlineFields(field, nil)
 		return true
@@ -1271,7 +1271,7 @@ func (t *Table) tryHasOne(joinTable *Table, field *Field, pgTag *tagparser.Tag) 
 		}
 		fk = tryUnderscorePrefix(fk)
 	} else {
-		fk = internal.Underscore(field.GoName) + "_"
+		fk = base.Underscore(field.GoName) + "_"
 	}
 
 	fks := foreignKeys(joinTable, t, fk, fkOK)
@@ -1296,7 +1296,7 @@ func (t *Table) tryBelongsToOne(joinTable *Table, field *Field, pgTag *tagparser
 		}
 		fk = tryUnderscorePrefix(fk)
 	} else {
-		fk = internal.Underscore(t.TypeName) + "_"
+		fk = base.Underscore(t.TypeName) + "_"
 	}
 
 	fks := foreignKeys(t, joinTable, fk, fkOK)
@@ -1411,8 +1411,8 @@ func tryUnderscorePrefix(s string) string {
 	if s == "" {
 		return s
 	}
-	if c := s[0]; internal.IsUpper(c) {
-		return internal.Underscore(s) + "_"
+	if c := s[0]; base.IsUpper(c) {
+		return base.Underscore(s) + "_"
 	}
 	return s
 }

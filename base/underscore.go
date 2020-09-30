@@ -1,4 +1,4 @@
-package internal
+package base
 
 func IsUpper(c byte) bool {
 	return c >= 'A' && c <= 'Z'

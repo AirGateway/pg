@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base/pool"
 	"github.com/AirGateway/pg/types"
 )
 

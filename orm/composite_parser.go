@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/AirGateway/pg/internal/parser"
+	"github.com/AirGateway/pg/base/parser"
 	"github.com/AirGateway/pg/types"
 )
 

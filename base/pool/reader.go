@@ -3,7 +3,7 @@ package pool
 import (
 	"sync"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 )
 
 type Reader interface {
@@ -48,7 +48,7 @@ func (c *ColumnAlloc) New(index int16, name []byte) *ColumnInfo {
 
 	c.columns = append(c.columns, ColumnInfo{
 		Index: index,
-		Name:  internal.BytesToString(c.name[s:]),
+		Name:  base.BytesToString(c.name[s:]),
 	})
 	return &c.columns[len(c.columns)-1]
 }

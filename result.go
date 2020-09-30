@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 	"github.com/AirGateway/pg/orm"
 )
 
@@ -30,7 +30,7 @@ func (res *result) parse(b []byte) error {
 		return nil
 	}
 
-	s := internal.BytesToString(b[ind+1 : len(b)-1])
+	s := base.BytesToString(b[ind+1 : len(b)-1])
 
 	affected, err := strconv.Atoi(s)
 	if err == nil {

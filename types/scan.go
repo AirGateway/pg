@@ -8,7 +8,7 @@ import (
 
 	"github.com/tmthrgd/go-hex"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 )
 
 func Scan(v interface{}, rd Reader, n int) error {
@@ -74,7 +74,7 @@ func ScanString(rd Reader, n int) (string, error) {
 		return "", err
 	}
 
-	return internal.BytesToString(b), nil
+	return base.BytesToString(b), nil
 }
 
 func ScanBytes(rd Reader, n int) ([]byte, error) {
@@ -128,7 +128,7 @@ func ScanInt(rd Reader, n int) (int, error) {
 		return 0, err
 	}
 
-	num, err := internal.Atoi(tmp)
+	num, err := base.Atoi(tmp)
 	if err != nil {
 		return 0, err
 	}
@@ -150,7 +150,7 @@ func scanInt64(rd Reader, n int, bitSize int) (int64, error) {
 		return 0, err
 	}
 
-	num, err := internal.ParseInt(tmp, 10, bitSize)
+	num, err := base.ParseInt(tmp, 10, bitSize)
 	if err != nil {
 		return 0, err
 	}
@@ -171,14 +171,14 @@ func ScanUint64(rd Reader, n int) (uint64, error) {
 	// PostgreSQL does not natively support uint64 - only int64.
 	// Be nice and accept negative int64.
 	if len(tmp) > 0 && tmp[0] == '-' {
-		num, err := internal.ParseInt(tmp, 10, 64)
+		num, err := base.ParseInt(tmp, 10, 64)
 		if err != nil {
 			return 0, err
 		}
 		return uint64(num), nil
 	}
 
-	num, err := internal.ParseUint(tmp, 10, 64)
+	num, err := base.ParseUint(tmp, 10, 64)
 	if err != nil {
 		return 0, err
 	}
@@ -196,7 +196,7 @@ func ScanFloat32(rd Reader, n int) (float32, error) {
 		return 0, err
 	}
 
-	num, err := internal.ParseFloat(tmp, 32)
+	num, err := base.ParseFloat(tmp, 32)
 	if err != nil {
 		return 0, err
 	}
@@ -214,7 +214,7 @@ func ScanFloat64(rd Reader, n int) (float64, error) {
 		return 0, err
 	}
 
-	num, err := internal.ParseFloat(tmp, 64)
+	num, err := base.ParseFloat(tmp, 64)
 	if err != nil {
 		return 0, err
 	}

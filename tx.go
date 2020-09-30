@@ -7,8 +7,8 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base"
+	"github.com/AirGateway/pg/base/pool"
 	"github.com/AirGateway/pg/orm"
 )
 
@@ -86,7 +86,7 @@ func (tx *Tx) RunInTransaction(ctx context.Context, fn func(*Tx) error) error {
 	defer func() {
 		if err := recover(); err != nil {
 			if err := tx.RollbackContext(ctx); err != nil {
-				internal.Logger.Printf(ctx, "tx.Rollback panicked: %s", err)
+				base.Logger.Printf(ctx, "tx.Rollback panicked: %s", err)
 			}
 			panic(err)
 		}
@@ -94,7 +94,7 @@ func (tx *Tx) RunInTransaction(ctx context.Context, fn func(*Tx) error) error {
 
 	if err := fn(tx); err != nil {
 		if err := tx.RollbackContext(ctx); err != nil {
-			internal.Logger.Printf(ctx, "tx.Rollback failed: %s", err)
+			base.Logger.Printf(ctx, "tx.Rollback failed: %s", err)
 		}
 		return err
 	}
@@ -190,7 +190,7 @@ func (tx *Tx) execOne(c context.Context, query interface{}, params ...interface{
 		return nil, err
 	}
 
-	if err := internal.AssertOneRow(res.RowsAffected()); err != nil {
+	if err := base.AssertOneRow(res.RowsAffected()); err != nil {
 		return nil, err
 	}
 	return res, nil
@@ -272,7 +272,7 @@ func (tx *Tx) queryOne(
 		return nil, err
 	}
 
-	if err := internal.AssertOneRow(res.RowsAffected()); err != nil {
+	if err := base.AssertOneRow(res.RowsAffected()); err != nil {
 		return nil, err
 	}
 	return res, nil
@@ -315,7 +315,7 @@ func (tx *Tx) begin(ctx context.Context) error {
 	var lastErr error
 	for attempt := 0; attempt <= tx.db.opt.MaxRetries; attempt++ {
 		if attempt > 0 {
-			if err := internal.Sleep(ctx, tx.db.retryBackoff(attempt-1)); err != nil {
+			if err := base.Sleep(ctx, tx.db.retryBackoff(attempt-1)); err != nil {
 				return err
 			}
 

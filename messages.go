@@ -13,8 +13,8 @@ import (
 
 	"mellium.im/sasl"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base"
+	"github.com/AirGateway/pg/base/pool"
 	"github.com/AirGateway/pg/orm"
 	"github.com/AirGateway/pg/types"
 )
@@ -72,7 +72,7 @@ const (
 	copyDoneMsg        = 'c'
 )
 
-var errEmptyQuery = internal.Errorf("pg: query is empty")
+var errEmptyQuery = base.Errorf("pg: query is empty")
 
 func (db *baseDB) startup(
 	c context.Context, cn *pool.Conn, user, password, database, appName string,
@@ -809,7 +809,7 @@ func readDataRow(
 
 		column := columns[colIdx]
 		if err := scanner.ScanColumn(column, colRd, int(n)); err != nil && firstErr == nil {
-			firstErr = internal.Errorf(err.Error())
+			firstErr = base.Errorf(err.Error())
 		}
 
 		if rd == colRd {
@@ -1319,7 +1319,7 @@ func readError(rd *pool.ReaderContext) (error, error) {
 		}
 		m[c] = s
 	}
-	return internal.NewPGError(m), nil
+	return base.NewPGError(m), nil
 }
 
 func readMessageType(rd *pool.ReaderContext) (byte, int, error) {

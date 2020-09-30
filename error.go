@@ -3,16 +3,16 @@ package pg
 import (
 	"net"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 )
 
 // ErrNoRows is returned by QueryOne and ExecOne when query returned zero rows
 // but at least one row is expected.
-var ErrNoRows = internal.ErrNoRows
+var ErrNoRows = base.ErrNoRows
 
 // ErrMultiRows is returned by QueryOne and ExecOne when query returned
 // multiple rows but exactly one row is expected.
-var ErrMultiRows = internal.ErrMultiRows
+var ErrMultiRows = base.ErrMultiRows
 
 // Error represents an error returned by PostgreSQL server
 // using PostgreSQL ErrorResponse protocol.
@@ -33,13 +33,13 @@ type Error interface {
 	IntegrityViolation() bool
 }
 
-var _ Error = (*internal.PGError)(nil)
+var _ Error = (*base.PGError)(nil)
 
 func isBadConn(err error, allowTimeout bool) bool {
 	if err == nil {
 		return false
 	}
-	if _, ok := err.(internal.Error); ok {
+	if _, ok := err.(base.Error); ok {
 		return false
 	}
 	if pgErr, ok := err.(Error); ok {

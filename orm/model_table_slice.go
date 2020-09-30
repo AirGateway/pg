@@ -4,7 +4,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 )
 
 type sliceTableModel struct {
@@ -26,7 +26,7 @@ func newSliceTableModel(slice reflect.Value, elemType reflect.Type) *sliceTableM
 		},
 		slice:    slice,
 		sliceLen: slice.Len(),
-		nextElem: internal.MakeSliceNextElemFunc(slice),
+		nextElem: base.MakeSliceNextElemFunc(slice),
 	}
 	m.init(slice.Type())
 	return m

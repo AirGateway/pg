@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base/pool"
 )
 
 type Reader = pool.Reader

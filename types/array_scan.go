@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base"
+	"github.com/AirGateway/pg/base/pool"
 )
 
 var arrayValueScannerType = reflect.TypeOf((*ArrayValueScanner)(nil)).Elem()
@@ -74,7 +74,7 @@ func ArrayScanner(typ reflect.Type) ScannerFunc {
 		}
 
 		p := newArrayParser(rd)
-		nextValue := internal.MakeSliceNextElemFunc(v)
+		nextValue := base.MakeSliceNextElemFunc(v)
 		var elemRd *pool.BytesReader
 
 		for {
@@ -183,7 +183,7 @@ func decodeSliceInt(rd Reader, n int) ([]int, error) {
 			continue
 		}
 
-		n, err := internal.Atoi(elem)
+		n, err := base.Atoi(elem)
 		if err != nil {
 			return nil, err
 		}
@@ -230,7 +230,7 @@ func scanInt64Array(rd Reader, n int) ([]int64, error) {
 			continue
 		}
 
-		n, err := internal.ParseInt(elem, 10, 64)
+		n, err := base.ParseInt(elem, 10, 64)
 		if err != nil {
 			return nil, err
 		}
@@ -277,7 +277,7 @@ func scanFloat64Array(rd Reader, n int) ([]float64, error) {
 			continue
 		}
 
-		n, err := internal.ParseFloat(elem, 64)
+		n, err := base.ParseFloat(elem, 64)
 		if err != nil {
 			return nil, err
 		}

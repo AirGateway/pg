@@ -5,7 +5,7 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 	"github.com/AirGateway/pg/orm"
 	"github.com/AirGateway/pg/types"
 )
@@ -90,8 +90,8 @@ func Hstore(v interface{}) *types.Hstore {
 }
 
 // SetLogger sets the logger to the given one.
-func SetLogger(logger internal.Logging) {
-	internal.Logger = logger
+func SetLogger(logger base.Logging) {
+	base.Logger = logger
 }
 
 //------------------------------------------------------------------------------
@@ -130,7 +130,7 @@ func (strings *Strings) ScanColumn(col types.ColumnInfo, rd types.Reader, n int)
 		return err
 	}
 
-	*strings = append(*strings, internal.BytesToString(b))
+	*strings = append(*strings, base.BytesToString(b))
 	return nil
 }
 

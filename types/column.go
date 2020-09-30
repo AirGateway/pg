@@ -3,7 +3,7 @@ package types
 import (
 	"encoding/json"
 
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base/pool"
 	"github.com/AirGateway/pg/pgjson"
 )
 

@@ -1,7 +1,7 @@
 /*
 internal is a private internal package.
 */
-package internal
+package base
 
 import (
 	"math/rand"

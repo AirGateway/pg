@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 )
 
 var (
@@ -442,7 +442,7 @@ func (p *ConnPool) reaper(frequency time.Duration) {
 		}
 		n, err := p.ReapStaleConns()
 		if err != nil {
-			internal.Logger.Printf(context.TODO(), "ReapStaleConns failed: %s", err)
+			base.Logger.Printf(context.TODO(), "ReapStaleConns failed: %s", err)
 			continue
 		}
 		atomic.AddUint32(&p.stats.StaleConns, uint32(n))

@@ -3,7 +3,7 @@ package orm
 import (
 	"reflect"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 	"github.com/AirGateway/pg/types"
 )
 
@@ -75,7 +75,7 @@ func (j *join) manyQuery(q *Query) (*Query, error) {
 	where = appendChildValues(
 		where, j.JoinModel.Root(), j.JoinModel.ParentIndex(), j.Rel.BaseFKs)
 	where = append(where, ")"...)
-	q = q.Where(internal.BytesToString(where))
+	q = q.Where(base.BytesToString(where))
 
 	if j.Rel.Polymorphic != nil {
 		q = q.Where(`? IN (?, ?)`,
@@ -137,7 +137,7 @@ func (j *join) m2mQuery(fmter QueryFormatter, q *Query) (*Query, error) {
 	join = append(join, ") IN ("...)
 	join = appendChildValues(join, j.BaseModel.Root(), index, baseTable.PKs)
 	join = append(join, ")"...)
-	q = q.Join(internal.BytesToString(join))
+	q = q.Join(base.BytesToString(join))
 
 	joinTable := j.JoinModel.Table()
 	for i, col := range j.Rel.M2MJoinFKs {

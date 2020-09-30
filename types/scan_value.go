@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 	"github.com/AirGateway/pg/pgjson"
 )
 
@@ -283,7 +283,7 @@ func scanIPValue(v reflect.Value, rd Reader, n int) error {
 		return err
 	}
 
-	ip := net.ParseIP(internal.BytesToString(tmp))
+	ip := net.ParseIP(base.BytesToString(tmp))
 	if ip == nil {
 		return fmt.Errorf("pg: invalid ip=%q", tmp)
 	}
@@ -307,7 +307,7 @@ func scanIPNetValue(v reflect.Value, rd Reader, n int) error {
 		return err
 	}
 
-	_, ipnet, err := net.ParseCIDR(internal.BytesToString(tmp))
+	_, ipnet, err := net.ParseCIDR(base.BytesToString(tmp))
 	if err != nil {
 		return err
 	}

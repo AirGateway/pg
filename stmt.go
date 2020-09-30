@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base"
+	"github.com/AirGateway/pg/base/pool"
 	"github.com/AirGateway/pg/orm"
 	"github.com/AirGateway/pg/types"
 )
@@ -42,7 +42,7 @@ func (stmt *Stmt) prepare(ctx context.Context, q string) error {
 	var lastErr error
 	for attempt := 0; attempt <= stmt.db.opt.MaxRetries; attempt++ {
 		if attempt > 0 {
-			if err := internal.Sleep(ctx, stmt.db.retryBackoff(attempt-1)); err != nil {
+			if err := base.Sleep(ctx, stmt.db.retryBackoff(attempt-1)); err != nil {
 				return err
 			}
 
@@ -95,7 +95,7 @@ func (stmt *Stmt) exec(ctx context.Context, params ...interface{}) (Result, erro
 	var lastErr error
 	for attempt := 0; attempt <= stmt.db.opt.MaxRetries; attempt++ {
 		if attempt > 0 {
-			lastErr = internal.Sleep(ctx, stmt.db.retryBackoff(attempt-1))
+			lastErr = base.Sleep(ctx, stmt.db.retryBackoff(attempt-1))
 			if lastErr != nil {
 				break
 			}
@@ -134,7 +134,7 @@ func (stmt *Stmt) execOne(c context.Context, params ...interface{}) (Result, err
 		return nil, err
 	}
 
-	if err := internal.AssertOneRow(res.RowsAffected()); err != nil {
+	if err := base.AssertOneRow(res.RowsAffected()); err != nil {
 		return nil, err
 	}
 	return res, nil
@@ -160,7 +160,7 @@ func (stmt *Stmt) query(ctx context.Context, model interface{}, params ...interf
 	var lastErr error
 	for attempt := 0; attempt <= stmt.db.opt.MaxRetries; attempt++ {
 		if attempt > 0 {
-			lastErr = internal.Sleep(ctx, stmt.db.retryBackoff(attempt-1))
+			lastErr = base.Sleep(ctx, stmt.db.retryBackoff(attempt-1))
 			if lastErr != nil {
 				break
 			}
@@ -204,7 +204,7 @@ func (stmt *Stmt) queryOne(c context.Context, model interface{}, params ...inter
 		return nil, err
 	}
 
-	if err := internal.AssertOneRow(res.RowsAffected()); err != nil {
+	if err := base.AssertOneRow(res.RowsAffected()); err != nil {
 		return nil, err
 	}
 	return res, nil

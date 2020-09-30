@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base/pool"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

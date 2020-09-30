@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 	"github.com/AirGateway/pg/types"
 )
 
@@ -708,7 +708,7 @@ loop:
 		if ind != -1 {
 			field := order[:ind]
 			sort := order[ind+1:]
-			switch internal.UpperString(sort) {
+			switch base.UpperString(sort) {
 			case "ASC", "DESC", "ASC NULLS FIRST", "DESC NULLS FIRST",
 				"ASC NULLS LAST", "DESC NULLS LAST":
 				q = q.OrderExpr("? ?", types.Ident(field), types.Safe(sort))
@@ -746,7 +746,7 @@ func (q *Query) OnConflict(s string, params ...interface{}) *Query {
 
 func (q *Query) onConflictDoUpdate() bool {
 	return q.onConflict != nil &&
-		strings.HasSuffix(internal.UpperString(q.onConflict.query), "DO UPDATE")
+		strings.HasSuffix(base.UpperString(q.onConflict.query), "DO UPDATE")
 }
 
 // Returning adds a RETURNING clause to the query.
@@ -804,7 +804,7 @@ func (q *Query) First() error {
 	}
 
 	b := appendColumns(nil, table.Alias, table.PKs)
-	return q.OrderExpr(internal.BytesToString(b)).Limit(1).Select()
+	return q.OrderExpr(base.BytesToString(b)).Limit(1).Select()
 }
 
 // Last sorts rows by primary key and selects the last row.
@@ -821,7 +821,7 @@ func (q *Query) Last() error {
 	// TODO: fix for multi columns
 	b := appendColumns(nil, table.Alias, table.PKs)
 	b = append(b, " DESC"...)
-	return q.OrderExpr(internal.BytesToString(b)).Limit(1).Select()
+	return q.OrderExpr(base.BytesToString(b)).Limit(1).Select()
 }
 
 // Select selects the model.
@@ -1055,8 +1055,8 @@ func (q *Query) SelectOrInsert(values ...interface{}) (inserted bool, _ error) {
 	var insertErr error
 	for i := 0; i < 5; i++ {
 		if i >= 2 {
-			dur := internal.RetryBackoff(i-2, 250*time.Millisecond, 5*time.Second)
-			if err := internal.Sleep(q.ctx, dur); err != nil {
+			dur := base.RetryBackoff(i-2, 250*time.Millisecond, 5*time.Second)
+			if err := base.Sleep(q.ctx, dur); err != nil {
 				return false, err
 			}
 		}
@@ -1065,7 +1065,7 @@ func (q *Query) SelectOrInsert(values ...interface{}) (inserted bool, _ error) {
 		if err == nil {
 			return false, nil
 		}
-		if err != internal.ErrNoRows {
+		if err != base.ErrNoRows {
 			return false, err
 		}
 
@@ -1080,10 +1080,10 @@ func (q *Query) SelectOrInsert(values ...interface{}) (inserted bool, _ error) {
 		res, err := insertq.Insert(values...)
 		if err != nil {
 			insertErr = err
-			if err == internal.ErrNoRows {
+			if err == base.ErrNoRows {
 				continue
 			}
-			if pgErr, ok := err.(internal.PGError); ok {
+			if pgErr, ok := err.(base.PGError); ok {
 				if pgErr.IntegrityViolation() {
 					continue
 				}

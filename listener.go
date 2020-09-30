@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/base"
+	"github.com/AirGateway/pg/base/pool"
 	"github.com/AirGateway/pg/types"
 )
 
@@ -69,7 +69,7 @@ func (ln *Listener) connWithLock(ctx context.Context) (*pool.Conn, error) {
 		_ = ln.Close()
 		return nil, errListenerClosed
 	default:
-		internal.Logger.Printf(ctx, "pg: Listen failed: %s", err)
+		base.Logger.Printf(ctx, "pg: Listen failed: %s", err)
 		return nil, err
 	}
 }
@@ -127,7 +127,7 @@ func (ln *Listener) closeTheCn(reason error) error {
 		return nil
 	}
 	if !ln.closed {
-		internal.Logger.Printf(ln.db.ctx, "pg: discarding bad listener connection: %s", reason)
+		base.Logger.Printf(ln.db.ctx, "pg: discarding bad listener connection: %s", reason)
 	}
 
 	err := ln.db.pool.CloseConn(ln.cn)
@@ -316,7 +316,7 @@ func (ln *Listener) initChannel(size int) {
 						<-timer.C
 					}
 				case <-timer.C:
-					internal.Logger.Printf(
+					base.Logger.Printf(
 						ctx,
 						"pg: %s channel is full for %s (notification is dropped)",
 						ln,

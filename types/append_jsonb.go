@@ -1,6 +1,6 @@
 package types
 
-import "github.com/AirGateway/pg/internal/parser"
+import "github.com/AirGateway/pg/base/parser"
 
 func AppendJSONB(b, jsonb []byte, flags int) []byte {
 	if hasFlag(flags, arrayFlag) {

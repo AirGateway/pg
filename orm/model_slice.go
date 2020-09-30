@@ -3,7 +3,7 @@ package orm
 import (
 	"reflect"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 	"github.com/AirGateway/pg/types"
 )
 
@@ -36,7 +36,7 @@ func (m *sliceModel) NextColumnScanner() ColumnScanner {
 
 func (m *sliceModel) ScanColumn(col types.ColumnInfo, rd types.Reader, n int) error {
 	if m.nextElem == nil {
-		m.nextElem = internal.MakeSliceNextElemFunc(m.slice)
+		m.nextElem = base.MakeSliceNextElemFunc(m.slice)
 	}
 	v := m.nextElem()
 	return m.scan(v, rd, n)

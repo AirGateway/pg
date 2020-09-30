@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/AirGateway/pg/internal/parser"
+	"github.com/AirGateway/pg/base/parser"
 )
 
 var errEndOfArray = errors.New("pg: end of array")

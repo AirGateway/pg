@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/internal/parser"
+	"github.com/AirGateway/pg/base"
+	"github.com/AirGateway/pg/base/parser"
 	"github.com/AirGateway/pg/types"
 )
 
@@ -49,7 +49,7 @@ func (q *SafeQueryAppender) Value() types.Safe {
 	if err != nil {
 		return types.Safe(err.Error())
 	}
-	return types.Safe(internal.BytesToString(b))
+	return types.Safe(base.BytesToString(b))
 }
 
 //------------------------------------------------------------------------------

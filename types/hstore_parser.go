@@ -4,7 +4,7 @@ import (
 	"errors"
 	"io"
 
-	"github.com/AirGateway/pg/internal/parser"
+	"github.com/AirGateway/pg/base/parser"
 )
 
 var errEndOfHstore = errors.New("pg: end of hstore")

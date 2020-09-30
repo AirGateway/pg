@@ -3,7 +3,7 @@ package types
 import (
 	"time"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/base"
 )
 
 const (
@@ -16,7 +16,7 @@ const (
 )
 
 func ParseTime(b []byte) (time.Time, error) {
-	s := internal.BytesToString(b)
+	s := base.BytesToString(b)
 	return ParseTimeString(s)
 }
 
