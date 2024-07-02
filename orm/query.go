@@ -11,8 +11,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/go-pg/pg/v10/internal"
-	"github.com/go-pg/pg/v10/types"
+	"github.com/AirGateway/pg/v10/internal"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 type QueryOp string
@@ -482,60 +482,60 @@ func (q *Query) WhereOr(condition string, params ...interface{}) *Query {
 
 // WhereGroup encloses conditions added in the function in parentheses.
 //
-//    q.Where("TRUE").
-//    	WhereGroup(func(q *orm.Query) (*orm.Query, error) {
-//    		q = q.WhereOr("FALSE").WhereOr("TRUE").
-//    		return q, nil
-//    	})
+//	q.Where("TRUE").
+//		WhereGroup(func(q *orm.Query) (*orm.Query, error) {
+//			q = q.WhereOr("FALSE").WhereOr("TRUE").
+//			return q, nil
+//		})
 //
 // generates
 //
-//    WHERE TRUE AND (FALSE OR TRUE)
+//	WHERE TRUE AND (FALSE OR TRUE)
 func (q *Query) WhereGroup(fn func(*Query) (*Query, error)) *Query {
 	return q.whereGroup(" AND ", fn)
 }
 
 // WhereGroup encloses conditions added in the function in parentheses.
 //
-//    q.Where("TRUE").
-//    	WhereNotGroup(func(q *orm.Query) (*orm.Query, error) {
-//    		q = q.WhereOr("FALSE").WhereOr("TRUE").
-//    		return q, nil
-//    	})
+//	q.Where("TRUE").
+//		WhereNotGroup(func(q *orm.Query) (*orm.Query, error) {
+//			q = q.WhereOr("FALSE").WhereOr("TRUE").
+//			return q, nil
+//		})
 //
 // generates
 //
-//    WHERE TRUE AND NOT (FALSE OR TRUE)
+//	WHERE TRUE AND NOT (FALSE OR TRUE)
 func (q *Query) WhereNotGroup(fn func(*Query) (*Query, error)) *Query {
 	return q.whereGroup(" AND NOT ", fn)
 }
 
 // WhereOrGroup encloses conditions added in the function in parentheses.
 //
-//    q.Where("TRUE").
-//    	WhereOrGroup(func(q *orm.Query) (*orm.Query, error) {
-//    		q = q.Where("FALSE").Where("TRUE").
-//    		return q, nil
-//    	})
+//	q.Where("TRUE").
+//		WhereOrGroup(func(q *orm.Query) (*orm.Query, error) {
+//			q = q.Where("FALSE").Where("TRUE").
+//			return q, nil
+//		})
 //
 // generates
 //
-//    WHERE TRUE OR (FALSE AND TRUE)
+//	WHERE TRUE OR (FALSE AND TRUE)
 func (q *Query) WhereOrGroup(fn func(*Query) (*Query, error)) *Query {
 	return q.whereGroup(" OR ", fn)
 }
 
 // WhereOrGroup encloses conditions added in the function in parentheses.
 //
-//    q.Where("TRUE").
-//    	WhereOrGroup(func(q *orm.Query) (*orm.Query, error) {
-//    		q = q.Where("FALSE").Where("TRUE").
-//    		return q, nil
-//    	})
+//	q.Where("TRUE").
+//		WhereOrGroup(func(q *orm.Query) (*orm.Query, error) {
+//			q = q.Where("FALSE").Where("TRUE").
+//			return q, nil
+//		})
 //
 // generates
 //
-//    WHERE TRUE OR NOT (FALSE AND TRUE)
+//	WHERE TRUE OR NOT (FALSE AND TRUE)
 func (q *Query) WhereOrNotGroup(fn func(*Query) (*Query, error)) *Query {
 	return q.whereGroup(" OR NOT ", fn)
 }
@@ -586,7 +586,7 @@ func (q *Query) addWhere(f queryWithSepAppender) {
 // WherePK adds condition based on the model primary keys.
 // Usually it is the same as:
 //
-//    Where("id = ?id")
+//	Where("id = ?id")
 func (q *Query) WherePK() *Query {
 	if !q.hasTableModel() {
 		q.err(errModelNil)
@@ -795,7 +795,7 @@ func (q *Query) countSelectQuery(column string) *SelectQuery {
 // First sorts rows by primary key and selects the first row.
 // It is a shortcut for:
 //
-//    q.OrderExpr("id ASC").Limit(1)
+//	q.OrderExpr("id ASC").Limit(1)
 func (q *Query) First() error {
 	table := q.tableModel.Table()
 
@@ -810,7 +810,7 @@ func (q *Query) First() error {
 // Last sorts rows by primary key and selects the last row.
 // It is a shortcut for:
 //
-//    q.OrderExpr("id DESC").Limit(1)
+//	q.OrderExpr("id DESC").Limit(1)
 func (q *Query) Last() error {
 	table := q.tableModel.Table()
 

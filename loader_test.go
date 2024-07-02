@@ -3,9 +3,9 @@ package pg_test
 import (
 	"errors"
 
-	"github.com/go-pg/pg/v10"
-	"github.com/go-pg/pg/v10/orm"
-	"github.com/go-pg/pg/v10/types"
+	"github.com/AirGateway/pg/v10"
+	"github.com/AirGateway/pg/v10/orm"
+	"github.com/AirGateway/pg/v10/types"
 
 	. "gopkg.in/check.v1"
 )
