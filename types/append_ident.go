@@ -1,6 +1,6 @@
 package types
 
-import "github.com/AirGateway/pg/internal"
+import "github.com/AirGateway/pg/v10/internal"
 
 func AppendIdent(b []byte, field string, flags int) []byte {
 	return appendIdent(b, internal.StringToBytes(field), flags)

@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/types"
 	"github.com/stretchr/testify/assert"
 )
 

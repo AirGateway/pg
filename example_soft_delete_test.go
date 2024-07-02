@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 type CustomTime struct {

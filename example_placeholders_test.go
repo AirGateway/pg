@@ -3,7 +3,7 @@ package pg_test
 import (
 	"fmt"
 
-	"github.com/AirGateway/pg"
+	"github.com/AirGateway/pg/v10"
 )
 
 type Params struct {

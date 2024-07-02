@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/AirGateway/pg/pgjson"
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/pgjson"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 var jsonbTests = []struct {

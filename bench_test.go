@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/AirGateway/pg"
-	"github.com/AirGateway/pg/orm"
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10"
+	"github.com/AirGateway/pg/v10/orm"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 func benchmarkDB() *pg.DB {

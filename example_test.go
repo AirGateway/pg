@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/AirGateway/pg"
-	"github.com/AirGateway/pg/orm"
+	"github.com/AirGateway/pg/v10"
+	"github.com/AirGateway/pg/v10/orm"
 )
 
 var (

@@ -7,9 +7,9 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/internal/pool"
-	"github.com/AirGateway/pg/orm"
+	"github.com/AirGateway/pg/v10/internal"
+	"github.com/AirGateway/pg/v10/internal/pool"
+	"github.com/AirGateway/pg/v10/orm"
 )
 
 // ErrTxDone is returned by any operation that is performed on a transaction

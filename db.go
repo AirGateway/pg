@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/AirGateway/pg/internal/pool"
-	"github.com/AirGateway/pg/orm"
+	"github.com/AirGateway/pg/v10/internal/pool"
+	"github.com/AirGateway/pg/v10/orm"
 )
 
 // Connect connects to a database using provided options.

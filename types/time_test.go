@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 func TestParseTimeString(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"sort"
 
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 type UpdateQuery struct {

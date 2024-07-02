@@ -11,8 +11,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/internal"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 type QueryOp string

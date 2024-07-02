@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/types"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

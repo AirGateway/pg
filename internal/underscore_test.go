@@ -3,7 +3,7 @@ package internal_test
 import (
 	"testing"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/v10/internal"
 )
 
 func TestUnderscore(t *testing.T) {

@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 type structTableModel struct {

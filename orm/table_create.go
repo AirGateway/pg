@@ -4,7 +4,7 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 type CreateTableOptions struct {

@@ -12,7 +12,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "gopkg.in/check.v1"
 
-	"github.com/AirGateway/pg"
+	"github.com/AirGateway/pg/v10"
 )
 
 func TestUnixSocket(t *testing.T) {

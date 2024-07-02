@@ -8,7 +8,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/AirGateway/pg"
+	"github.com/AirGateway/pg/v10"
 )
 
 type HookTest struct {

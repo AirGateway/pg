@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/AirGateway/pg"
+	"github.com/AirGateway/pg/v10"
 )
 
 type Test struct {

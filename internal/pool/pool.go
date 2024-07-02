@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/v10/internal"
 )
 
 var (

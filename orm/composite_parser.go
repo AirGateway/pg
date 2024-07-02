@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/AirGateway/pg/internal/parser"
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/internal/parser"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 var errEndOfComposite = errors.New("pg: end of composite")

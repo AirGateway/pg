@@ -1,8 +1,8 @@
 package main
 
 import (
-	pg "github.com/AirGateway/pg"
-	"github.com/AirGateway/pg/orm"
+	pg "github.com/AirGateway/pg/v10"
+	"github.com/AirGateway/pg/v10/orm"
 	"github.com/go-pg/pgext"
 )
 

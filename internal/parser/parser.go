@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strconv"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/v10/internal"
 )
 
 type Parser struct {

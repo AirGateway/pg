@@ -3,7 +3,7 @@ package pg
 import (
 	"net"
 
-	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/v10/internal"
 )
 
 // ErrNoRows is returned by QueryOne and ExecOne when query returned zero rows

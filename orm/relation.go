@@ -3,7 +3,7 @@ package orm
 import (
 	"fmt"
 
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 const (

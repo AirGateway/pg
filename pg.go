@@ -5,9 +5,9 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/AirGateway/pg/internal"
-	"github.com/AirGateway/pg/orm"
-	"github.com/AirGateway/pg/types"
+	"github.com/AirGateway/pg/v10/internal"
+	"github.com/AirGateway/pg/v10/orm"
+	"github.com/AirGateway/pg/v10/types"
 )
 
 // Discard is used with Query and QueryOne to discard rows.

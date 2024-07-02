@@ -17,8 +17,8 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/AirGateway/pg"
-	"github.com/AirGateway/pg/orm"
+	"github.com/AirGateway/pg/v10"
+	"github.com/AirGateway/pg/v10/orm"
 )
 
 func init() {
