@@ -3,7 +3,7 @@ package pg_test
 import (
 	"time"
 
-	"github.com/AirGateway/pg/v10"
+	"github.com/AirGateway/pg"
 
 	. "gopkg.in/check.v1"
 )

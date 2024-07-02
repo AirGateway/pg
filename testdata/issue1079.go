@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/AirGateway/pg/v10"
-	"github.com/AirGateway/pg/v10/orm"
+	"github.com/AirGateway/pg"
+	"github.com/AirGateway/pg/orm"
 )
 
 type MyType struct {

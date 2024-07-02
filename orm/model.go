@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/AirGateway/pg/v10/types"
+	"github.com/AirGateway/pg/types"
 )
 
 var errModelNil = errors.New("pg: Model(nil)")

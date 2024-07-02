@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/AirGateway/pg/v10"
+	"github.com/AirGateway/pg"
 )
 
 // models

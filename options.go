@@ -15,8 +15,8 @@ import (
 
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/AirGateway/pg/v10/internal"
-	"github.com/AirGateway/pg/v10/internal/pool"
+	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/internal/pool"
 )
 
 // Options contains database connection options.

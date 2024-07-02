@@ -8,9 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/AirGateway/pg/v10/internal"
-	"github.com/AirGateway/pg/v10/internal/pool"
-	"github.com/AirGateway/pg/v10/types"
+	"github.com/AirGateway/pg/internal"
+	"github.com/AirGateway/pg/internal/pool"
+	"github.com/AirGateway/pg/types"
 )
 
 const gopgChannel = "gopg:ping"

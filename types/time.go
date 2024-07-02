@@ -3,7 +3,7 @@ package types
 import (
 	"time"
 
-	"github.com/AirGateway/pg/v10/internal"
+	"github.com/AirGateway/pg/internal"
 )
 
 const (

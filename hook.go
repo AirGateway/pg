@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/AirGateway/pg/v10/orm"
+	"github.com/AirGateway/pg/orm"
 )
 
 type (

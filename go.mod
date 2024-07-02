@@ -1,4 +1,4 @@
-module github.com/AirGateway/pg/v10
+module github.com/AirGateway/pg
 
 go 1.21
 

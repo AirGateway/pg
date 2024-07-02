@@ -3,7 +3,7 @@ package parser
 import (
 	"fmt"
 
-	"github.com/AirGateway/pg/v10/internal/pool"
+	"github.com/AirGateway/pg/internal/pool"
 )
 
 type StreamingParser struct {
